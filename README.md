@@ -1,15 +1,15 @@
 # Objective
 Create a "split-horizon" DNS server which resolves private and public IPs with A records using BIND9 deployed on Docker images, on a default ArchLinux installation.
 # Steps
-1. Install Docker on the machine.\
-2. Set up the `docker-compose.yml` file that includes the BIND9 service with permissions and exposed ports.\
-3. Create the BIND9 default configuration with forwarders in `named.conf`.\
-4. Create a zone file for internal name resolution to different devices on the network.\
+1. Install Docker on the machine.
+2. Set up the `docker-compose.yml` file that includes the BIND9 service with permissions and exposed ports.
+3. Create the BIND9 default configuration with forwarders in `named.conf`.
+4. Create a zone file for internal name resolution to different devices on the network.
 5. Set your DHCP server to forward the newly configured DNS server.
 # Install Docker
 `sudo pacman -Syy docker docker-compose`
 # Set up the Docker composition file.
-![image](https://github.com/user-attachments/assets/ec6456f6-776b-46de-af6a-78a6063fb229)
+![image](https://github.com/user-attachments/assets/ec6456f6-776b-46de-af6a-78a6063fb229)\
 This tells Docker to and how to run bind9.\
 We will set the `image` as `ubuntu/bind9`.\
 Run `docker-compose up` to start Docker with the composition configuration file. We will re-run this every time we want to restart the container.\
@@ -18,14 +18,14 @@ Allow the application through the TCP and UDP port 53. As `bind9` is an open DNS
 Specify the volumes to bind the directories to the ones in the container.\
 The container will only restart until stopped or reboot.
 # Create the BIND9 default configuration
-![image](https://github.com/user-attachments/assets/38b26e88-64a8-46d1-9ece-7618bb290bb7)
+![image](https://github.com/user-attachments/assets/38b26e88-64a8-46d1-9ece-7618bb290bb7)\
 We will create an ACL for internal DNS resolving. This will include all of the IP addresses in the homelab network.\
 We will forward all outgoing connections to the specified DNS servers.\
 Finally, we will specify a zone in the configuration.\
 The type will be master.\
 The file path specified to the zone file will correlate to the bindings made in the Docker composition file.
 # Create the zone file
-![image](https://github.com/user-attachments/assets/d385cffb-0963-4bb2-ba4d-6ccf0227c110)
+![image](https://github.com/user-attachments/assets/d385cffb-0963-4bb2-ba4d-6ccf0227c110)\
 We will define the `$TTL` variable as a duration to keep within the cache.\
 The `$ORIGIN` variable will be the name of the DNS zone you want to configure. This will allow for brevity when creating A records in this document, as the FQDN specified here will not need to be prepended to each record. You have to append a `.` at the end of this variable.\
 There are two entries we will always need in a DNS zone. The SOA entry, and the nameserver records.\
