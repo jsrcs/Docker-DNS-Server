@@ -1,0 +1,13 @@
+$TTL 2d
+$ORIGIN home.base.
+@	IN	SOA	ns	hostmaster (
+	0020241118; Serial
+	8h; refresh
+	30m; retry
+	1w; expire
+	1h; negative cache TTL
+	)
+
+	IN 	NS 	ns
+ns	A	192.168.1.104 
+@	A	192.168.1.104 
