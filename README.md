@@ -10,8 +10,8 @@ Create a "split-horizon" DNS server which resolves private and public IPs with A
 `sudo pacman -Syy docker docker-compose`
 # Set up the Docker composition file.
 [image1]
-This tells Docker to and how to run bind9.
-We will set the `image` as `ubuntu/bind9`.
+This tells Docker to and how to run bind9.\
+We will set the `image` as `ubuntu/bind9`.\
 Run `docker-compose up` to start Docker with the composition configuration file. We will re-run this every time we want to restart the container.
 Set the environment variables for permissions, and a timezone.
 Allow the application through the TCP and UDP port 53. As `bind9` is an open DNS resolver, make sure to never expose port 53 to the internet, which will be abused and likely crash the DNS server.
